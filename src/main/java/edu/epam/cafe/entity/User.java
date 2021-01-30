@@ -6,7 +6,17 @@ public class User {
     private String username;
     private String firstName;
     private String lastName;
+    private Role role;
     private Boolean enabled;
+
+    public User(String email, String username, String firstName, String lastName, Role role, Boolean enabled) {
+        this.email = email;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+        this.enabled = enabled;
+    }
 
     public long getUserId() {
         return userId;
@@ -46,6 +56,14 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Boolean getEnabled() {

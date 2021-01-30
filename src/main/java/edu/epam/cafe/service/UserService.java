@@ -13,6 +13,7 @@ public interface UserService {
     Optional<User> findUserByUsername(String username);
 
     boolean checkPasswords(String password, String repeatPassword);
-
+    boolean isEmailExist(String email);
+    boolean isUsernameExist(String username);
 
 }

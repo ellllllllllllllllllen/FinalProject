@@ -3,6 +3,7 @@ package edu.epam.cafe.command.impl;
 import edu.epam.cafe.command.Command;
 import edu.epam.cafe.command.ErrorMessage;
 import edu.epam.cafe.command.RequestParameter;
+import edu.epam.cafe.controller.PagePath;
 import edu.epam.cafe.entity.Role;
 import edu.epam.cafe.entity.User;
 import edu.epam.cafe.service.UserService;
@@ -31,6 +32,7 @@ public class PostSignUpCommand implements Command {
         String password = request.getParameter(RequestParameter.PASSWORD);
         String repeatPassword = request.getParameter(RequestParameter.REPEAT_PASSWORD);
         boolean correct = true;
+        String page = null;
 
         if(userService.isEmailExist(email)){
             request.setAttribute(ErrorMessage.MAIL, "Email is already exists.");
@@ -56,18 +58,17 @@ public class PostSignUpCommand implements Command {
             request.setAttribute(ErrorMessage.LASTNAME, "Lastname cannot be empty.");
             correct = false;
         }
-        if(!userService.isPasswordAndRepeatPasswordValid(password, repeatPassword)){
+        if(!userService.checkPasswords(password, repeatPassword)){
             request.setAttribute(ErrorMessage.PASSWORD, "Password is incorrect or repeat password does not match the password.");
             correct = false;
         }
         if(correct){
             User user = new User(email, username, firstName, lastName, Role.USER, true);
             userService.createUser(user, password);
-
+            page = PagePath.SIGN_IN;
+        } else {
+            page = PagePath.SIGN_UP;
         }
-
-
-
-        return null;
+        return page;
     }
 }

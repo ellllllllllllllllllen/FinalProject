@@ -30,4 +30,14 @@ public class UserServiceImpl implements UserService {
     public boolean checkPasswords(String password, String repeatPassword) {
         return false;
     }
+
+    @Override
+    public boolean isEmailExist(String email) {
+        return false;
+    }
+
+    @Override
+    public boolean isUsernameExist(String username) {
+        return false;
+    }
 }

@@ -44,7 +44,7 @@ public class PostSignUpCommand implements Command {
             request.setAttribute(ErrorMessage.USERNAME, "Username is already exists.");
             correct = false;
         }
-        if(!userService.isUsernameValid(username)){
+        if(!validator.validate(username)){
             request.setAttribute(ErrorMessage.USERNAME, "Username is incorrect.");
             correct = false;
         }

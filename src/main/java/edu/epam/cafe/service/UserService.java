@@ -10,5 +10,9 @@ public interface UserService {
     Optional<User> createUser(User user, String password);
     Optional<User> findUserById(Long id);
     Optional<User> findUserByEmail(String email);
+    Optional<User> findUserByUsername(String username);
+
+    boolean checkPasswords(String password, String repeatPassword);
+
 
 }

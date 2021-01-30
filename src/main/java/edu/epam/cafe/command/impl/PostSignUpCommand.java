@@ -48,11 +48,11 @@ public class PostSignUpCommand implements Command {
             request.setAttribute(ErrorMessage.USERNAME, "Username is incorrect.");
             correct = false;
         }
-        if(!userService.isFirstnameValid(firstName)){
+        if(!validator.validate(firstName)){
             request.setAttribute(ErrorMessage.FIRSTNAME, "Firstname cannot be empty.");
             correct = false;
         }
-        if(!userService.isLastNameValid(lastName)){
+        if(!validator.validate(lastName)){
             request.setAttribute(ErrorMessage.LASTNAME, "Lastname cannot be empty.");
             correct = false;
         }

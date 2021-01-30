@@ -1,6 +1,6 @@
 package edu.epam.cafe.validator;
 
-public interface Validator {
+public interface Validator<T> {
 
-    void validate();
+    boolean validate(T t);
 }

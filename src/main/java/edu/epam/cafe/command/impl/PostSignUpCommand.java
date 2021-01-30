@@ -6,6 +6,7 @@ import edu.epam.cafe.command.RequestParameter;
 import edu.epam.cafe.entity.Role;
 import edu.epam.cafe.entity.User;
 import edu.epam.cafe.service.UserService;
+import edu.epam.cafe.validator.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,9 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 public class PostSignUpCommand implements Command {
     private static final Logger logger = LogManager.getLogger(PostSignUpCommand.class);
     private final UserService userService;
+    private final Validator validator;
 
-    public PostSignUpCommand(UserService userService) {
+    public PostSignUpCommand(UserService userService, Validator validator) {
         this.userService = userService;
+        this.validator = validator;
     }
 
     @Override
@@ -33,7 +36,7 @@ public class PostSignUpCommand implements Command {
             request.setAttribute(ErrorMessage.MAIL, "Email is already exists.");
             correct = false;
         }
-        if(!userService.isEmailValid(email)){
+        if(!validator.validate(email)){
             request.setAttribute(ErrorMessage.MAIL, "Email is incorrect.");
             correct = false;
         }
@@ -53,7 +56,7 @@ public class PostSignUpCommand implements Command {
             request.setAttribute(ErrorMessage.LASTNAME, "Lastname cannot be empty.");
             correct = false;
         }
-        if(!userService.isPasswordAndRepeatPasswordValid()){
+        if(!userService.isPasswordAndRepeatPasswordValid(password, repeatPassword)){
             request.setAttribute(ErrorMessage.PASSWORD, "Password is incorrect or repeat password does not match the password.");
             correct = false;
         }

@@ -8,6 +8,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> createUser(User user, String password) {
+        String encoderPassword = PasswordEncryption
         return Optional.empty();
     }
 

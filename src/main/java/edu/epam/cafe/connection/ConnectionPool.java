@@ -1,12 +1,15 @@
 package edu.epam.cafe.connection;
 
+import edu.epam.cafe.util.PropertyLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayDeque;
+import java.util.Properties;
 import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -20,8 +23,9 @@ public final class ConnectionPool {
     private static final String DATABASE_DRIVER = "driver";
     private static final int DEFAULT_POOL_SIZE = 32;
 
-    private final BlockingQueue<Connection> freeConnections;
-    private final Queue<Connection> busyConnections;
+    private final BlockingQueue<ProxyConnection> freeConnections;
+    private final Queue<ProxyConnection> busyConnections;
+    private PropertyLoader propertyLoader;
 
     private ConnectionPool() {
         freeConnections = new LinkedBlockingDeque<>(DEFAULT_POOL_SIZE);
@@ -71,7 +75,16 @@ public final class ConnectionPool {
         freeConnections.put(connection);
     }
     //Инициализирует пул соединений jdbc.
-    private void init() {
+    private void init() throws IOException, ClassNotFoundException {
+        PropertyLoader propertyLoader = new PropertyLoader();
+        Properties properties;
+        properties = propertyLoader.load(DATABASE_PROPERTIES);
+        String url = properties.getProperty(DATABASE_URL);
+        String driver = properties.getProperty(DATABASE_DRIVER);
+        Class.forName(driver);
+        freeConnections = new LinkedBlockingDeque<>(DEFAULT_POOL_SIZE);
+        busyConnections = new ArrayDeque<>();
+
 
     }
     //Получает пул соединений jdbc из свойств проекта.

@@ -3,6 +3,7 @@ package edu.epam.cafe.service.impl;
 import edu.epam.cafe.dao.BaseDao;
 import edu.epam.cafe.dao.impl.UserDao;
 import edu.epam.cafe.entity.User;
+import edu.epam.cafe.exception.DaoException;
 import edu.epam.cafe.service.UserService;
 import edu.epam.cafe.util.PasswordEncryption;
 
@@ -10,9 +11,10 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
     @Override
-    public boolean createUser(User user, String password) {
+    public boolean createUser(User user, String password) throws DaoException {
         String encryptedPassword = PasswordEncryption.encrypt(password);
-        boolean update = UserDao.add(user, encryptedPassword);
+        UserDao userDao = UserDao.getInstance();
+        boolean update = userDao.add(user, encryptedPassword);
         return update;
     }
 

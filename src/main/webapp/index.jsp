@@ -2,6 +2,15 @@
 <html>
 <head>
     <title>Index</title>
+    <script>
+        function disp(form) {
+            if (form.style.display == "none") {
+                form.style.display = "block";
+            } else {
+                form.style.display = "none";
+            }
+        }
+    </script>
 </head>
 <body>
 <section class="header">
@@ -14,13 +23,24 @@
     <div class="phone">
 
     </div>
-    <div class="authorization">
-        <div class="username">
+    <div class="user">
 
-        </div>
-        <div class="avatar">
+        <input type="button" value="Sign in" onclick="disp(document.getElementById('sign_in'))" />
+        <form id="sign_in" style="display: none;" action="/controller" method="post">
+            <input type="hidden" name="command" value="sign_in">
+            <input type="text" id="login" name="login" placeholder="login">
+            <input type="password" id="password" name="password" placeholder="password">
+            <input type="submit" value="sign in">
+        </form>
+        ${errorUserMessage}
 
+        <div class="sign_up">
+            <form action="/controller" method="get">
+                <input type="hidden" name="command" value="sign_up_page">
+                <input type="submit" value="sign up">
+            </form>
         </div>
+
     </div>
     <div class="basket">
 

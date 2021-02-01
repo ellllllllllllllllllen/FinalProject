@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -22,15 +23,16 @@ public final class ConnectionPool {
     private static final String DATABASE_URL = "url";
     private static final String DATABASE_DRIVER = "driver";
     private static final int DEFAULT_POOL_SIZE = 32;
+    private int timeout;
 
-    private final BlockingQueue<ProxyConnection> freeConnections;
-    private final Queue<ProxyConnection> busyConnections;
+    private BlockingQueue<ProxyConnection> freeConnections;
+    private Queue<ProxyConnection> busyConnections;
     private PropertyLoader propertyLoader;
 
     private ConnectionPool() {
         freeConnections = new LinkedBlockingDeque<>(DEFAULT_POOL_SIZE);
         busyConnections = new ArrayDeque<>();
-        init();
+//        init();
     }
     public static ConnectionPool getInstance() {
         if (instance == null) {
@@ -60,7 +62,7 @@ public final class ConnectionPool {
     public Connection getConnection() throws InterruptedException {
         Connection connection = null;
         connection = freeConnections.take();
-        busyConnections.offer(connection);
+        busyConnections.offer((ProxyConnection) connection);
         return connection;
     }
 
@@ -72,7 +74,7 @@ public final class ConnectionPool {
         if(!busyConnections.remove(connection)){
             logger.error("Connection is not busy");
         }
-        freeConnections.put(connection);
+        freeConnections.put((ProxyConnection) connection);
     }
     //Инициализирует пул соединений jdbc.
     private void init() throws IOException, ClassNotFoundException {
@@ -83,20 +85,30 @@ public final class ConnectionPool {
         String driver = properties.getProperty(DATABASE_DRIVER);
         Class.forName(driver);
         freeConnections = new LinkedBlockingDeque<>(DEFAULT_POOL_SIZE);
-        busyConnections = new ArrayDeque<>();
+        busyConnections = new ArrayDeque<>(DEFAULT_POOL_SIZE);
+        logger.info("Created connection collections...");
+
+        registerDriver();
+        logger.info("Registered driver...");
+
+        createConnections();
+        logger.info("Initialized connection collection...");
+
+        timeout = getConnectionTimeout();
+        logger.info("Initialized connection timeout...");
 
 
-    }
-    //Получает пул соединений jdbc из свойств проекта.
-    //Если в свойствах проекта не определен пул соединений, то возвращает дефолтное значение
-    private int getDatabaseConnectionPool() {
-        return 0;
+
     }
 
     //Получает имя драйвера jdbc из файла project.properties и регистрирует этот драйвер.
     //Если не удается найти имя драйвера базы данных, пытается зарегистрировать по умолчанию "com.mysql.cj.jdbc.Driver".
-    private void registerDriver() {
+    private void registerDriver() throws ClassNotFoundException, IOException {
+            logger.info("Trying to register database driver...");
+            Properties properties = new Properties();
+            properties.load(new InputStreamReader(ConnectionPool.class.getResourceAsStream("database.properties")));
 
+            Class.forName(properties.getProperty("driver"));
     }
 
     //Создает экземпляры соединения jdbc и помещает их в freeConnections.

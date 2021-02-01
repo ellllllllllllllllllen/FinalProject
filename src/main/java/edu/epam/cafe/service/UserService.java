@@ -1,13 +1,13 @@
 package edu.epam.cafe.service;
 
 import edu.epam.cafe.entity.User;
-import org.graalvm.compiler.nodes.calc.IntegerDivRemNode;
+import edu.epam.cafe.exception.DaoException;
 
 import java.util.Optional;
 
 public interface UserService {
 
-    boolean createUser(User user, String password);
+    boolean createUser(User user, String password) throws DaoException;
     Optional<User> findUserById(Long id);
     Optional<User> findUserByEmail(String email);
     Optional<User> findUserByUsername(String username);

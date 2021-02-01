@@ -6,6 +6,7 @@ import edu.epam.cafe.command.RequestParameter;
 import edu.epam.cafe.controller.PagePath;
 import edu.epam.cafe.entity.Role;
 import edu.epam.cafe.entity.User;
+import edu.epam.cafe.exception.DaoException;
 import edu.epam.cafe.service.UserService;
 import edu.epam.cafe.validator.Validator;
 import org.apache.logging.log4j.LogManager;
@@ -24,7 +25,7 @@ public class PostSignUpCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request) throws DaoException {
         String email = request.getParameter(RequestParameter.EMAIL);
         String username = request.getParameter(RequestParameter.USERNAME);
         String firstName = request.getParameter(RequestParameter.FIRSTNAME);

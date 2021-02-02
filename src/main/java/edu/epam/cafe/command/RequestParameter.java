@@ -10,4 +10,6 @@ public class RequestParameter {
     public static final String LASTNAME = "lastname";
     public static final String PASSWORD = "password";
     public static final String REPEAT_PASSWORD = "repeat_password";
+
+    public static final String COMMAND = "command";
 }

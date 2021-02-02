@@ -29,12 +29,12 @@ public final class ConnectionPool {
     private Queue<ProxyConnection> busyConnections;
     private PropertyLoader propertyLoader;
 
-    private ConnectionPool() {
+    private ConnectionPool() throws IOException, ClassNotFoundException, SQLException {
         freeConnections = new LinkedBlockingDeque<>(DEFAULT_POOL_SIZE);
         busyConnections = new ArrayDeque<>();
-//        init();
+        init();
     }
-    public static ConnectionPool getInstance() {
+    public static ConnectionPool getInstance() throws IOException, ClassNotFoundException, SQLException {
         if (instance == null) {
             instance = new ConnectionPool();
         }
@@ -77,7 +77,7 @@ public final class ConnectionPool {
         freeConnections.put((ProxyConnection) connection);
     }
     //Инициализирует пул соединений jdbc.
-    private void init() throws IOException, ClassNotFoundException {
+    private void init() throws IOException, ClassNotFoundException, SQLException {
         PropertyLoader propertyLoader = new PropertyLoader();
         Properties properties;
         properties = propertyLoader.load(DATABASE_PROPERTIES);
@@ -96,9 +96,6 @@ public final class ConnectionPool {
 
         timeout = getConnectionTimeout();
         logger.info("Initialized connection timeout...");
-
-
-
     }
 
     //Получает имя драйвера jdbc из файла project.properties и регистрирует этот драйвер.
@@ -112,8 +109,16 @@ public final class ConnectionPool {
     }
 
     //Создает экземпляры соединения jdbc и помещает их в freeConnections.
-    private void createConnections() {
-
+    private void createConnections() throws IOException, SQLException {
+        for(int i = 0; i < DEFAULT_POOL_SIZE; i++){
+            try {
+            Connection connection = new ProxyConnection(DBConnectionUtil.getConnection());
+            freeConnections.add((ProxyConnection) connection);
+            logger.info("Initialized connection {} of {}...", i + 1, DEFAULT_POOL_SIZE);
+            } catch (final SQLException e) {
+                logger.error("Can't create connection to database!", e);
+            }
+        }
     }
 
     //Получает тайм-аут соединения jdbc из свойств проекта.

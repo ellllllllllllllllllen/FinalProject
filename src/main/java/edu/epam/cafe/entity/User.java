@@ -4,18 +4,16 @@ public class User {
     private long userId;
     private String email;
     private String username;
-    private String firstName;
-    private String lastName;
+    private String firstname;
+    private String lastname;
     private Role role;
-    private Boolean enabled;
 
-    public User(String email, String username, String firstName, String lastName, Role role, Boolean enabled) {
+    public User(String email, String username, String firstname, String lastname, Role role) {
         this.email = email;
         this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.role = role;
-        this.enabled = enabled;
     }
 
     public long getUserId() {
@@ -42,20 +40,20 @@ public class User {
         this.username = username;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public Role getRole() {
@@ -66,11 +64,42 @@ public class User {
         this.role = role;
     }
 
-    public Boolean getEnabled() {
-        return enabled;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (userId != user.userId) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (username != null ? !username.equals(user.username) : user.username != null) return false;
+        if (firstname != null ? !firstname.equals(user.firstname) : user.firstname != null) return false;
+        if (lastname != null ? !lastname.equals(user.lastname) : user.lastname != null) return false;
+        return role == user.role;
     }
 
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
+    @Override
+    public int hashCode() {
+        int result = (int) (userId ^ (userId >>> 32));
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("User{");
+        sb.append("userId=").append(userId);
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", username='").append(username).append('\'');
+        sb.append(", firstname='").append(firstname).append('\'');
+        sb.append(", lastname='").append(lastname).append('\'');
+        sb.append(", role=").append(role);
+        sb.append('}');
+        return sb.toString();
     }
 }

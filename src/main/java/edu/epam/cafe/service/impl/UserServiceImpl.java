@@ -4,37 +4,62 @@ import edu.epam.cafe.dao.BaseDao;
 import edu.epam.cafe.dao.impl.UserDao;
 import edu.epam.cafe.entity.User;
 import edu.epam.cafe.exception.DaoException;
+import edu.epam.cafe.exception.ServiceException;
 import edu.epam.cafe.service.UserService;
 import edu.epam.cafe.util.PasswordEncryption;
 import edu.epam.cafe.validator.UserValidator;
 import edu.epam.cafe.validator.impl.PasswordValidator;
 import edu.epam.cafe.validator.impl.UserValidatorImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
+    private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
+    private final UserValidator userValidator = new UserValidatorImpl();
+    private final UserDao userDao = UserDao.getInstance();
+
     @Override
-    public boolean createUser(User user, String password) throws DaoException {
-        String encryptedPassword = PasswordEncryption.encrypt(password);
-        UserDao userDao = UserDao.getInstance();
-        boolean update = userDao.add(user, encryptedPassword);
-        return update;
+    public boolean createUser(User user, String password)throws ServiceException{
+        try {
+            String encryptedPassword = PasswordEncryption.encrypt(password);
+            UserDao userDao = UserDao.getInstance();
+            boolean update = userDao.add(user, encryptedPassword);
+            return update;
+        }catch (DaoException e){
+        throw new ServiceException(e);
+        }
     }
 
     @Override
-    public Optional<User> findUserById(Long id) {
-
-        return Optional.empty();
+    public Optional<User> findUserById(Long id) throws ServiceException {
+        try {
+            Optional<User> user = userDao.findById(id);
+            return user;
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
     }
 
     @Override
-    public Optional<User> findUserByEmail(String email) {
-        return Optional.empty();
+    public Optional<User> findUserByEmail(String email) throws ServiceException {
+        try {
+            Optional<User> user = userDao.findByEmail(email);
+            return user;
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
     }
 
     @Override
-    public Optional<User> findUserByUsername(String username) {
-        return Optional.empty();
+    public Optional<User> findUserByUsername(String username) throws ServiceException {
+        try {
+            Optional<User> user = userDao.findByUsername(username);
+            return user;
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
     }
 
     @Override
@@ -48,12 +73,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isEmailExist(String email) {
-        return false;
+    public boolean isEmailExist(String email) throws ServiceException {
+        Optional<User> user = findUserByEmail(email);
+        boolean isExist = false;
+        if (user.isPresent()) {
+            isExist = true;
+        }
+        return isExist;
     }
 
     @Override
-    public boolean isUsernameExist(String username) {
-        return false;
+    public boolean isUsernameExist(String username) throws ServiceException {
+        Optional<User> user = findUserByUsername(username);
+        boolean isExist = false;
+        if (user.isPresent()) {
+            isExist = true;
+        }
+        return isExist;
     }
 }

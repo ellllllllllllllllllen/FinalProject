@@ -11,9 +11,9 @@ public class Queries {
 
     private static final String SET_ADMIN_ROLE = "UPDATE users SET user_role = 'ADMIN' where `username` = '%s';";
 
-    private static final String FIND_USER_BY_EMAIL = "SELECT email, username, firstname, lastname, user_role" +
+    public static final String FIND_USER_BY_EMAIL = "SELECT email, username, firstname, lastname, user_role" +
             "FROM users WHERE email = ?";
-    private static final String FIND_USER_BY_USERNAME = "SELECT email, username, firstname, lastname, user_role" +
+    public static final String FIND_USER_BY_USERNAME = "SELECT email, username, firstname, lastname, user_role" +
             "FROM users WHERE username = ?";
 
     private static final String FIND_USER_BY_EMAIL_AND_PASSWORD = "SELECT email, username, firstname, lastname, user_role" +

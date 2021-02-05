@@ -4,6 +4,7 @@ import edu.epam.cafe.connection.ConnectionPool;
 import edu.epam.cafe.connection.DBConnectionUtil;
 import edu.epam.cafe.dao.BaseDao;
 import edu.epam.cafe.dao.Queries;
+import edu.epam.cafe.entity.Role;
 import edu.epam.cafe.entity.User;
 import edu.epam.cafe.exception.ConnectionPoolException;
 import edu.epam.cafe.exception.DaoException;
@@ -13,8 +14,13 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
+
+import static edu.epam.cafe.dao.Queries.FIND_USER_BY_EMAIL;
+import static edu.epam.cafe.dao.Queries.FIND_USER_BY_USERNAME;
 
 public class UserDao implements BaseDao {
     private static final Logger logger = LogManager.getLogger(UserDao.class);
@@ -65,5 +71,75 @@ public class UserDao implements BaseDao {
         return null;
     }
 
+    @Override
+    public Optional<User> findByEmail(String email) throws DaoException {
+        Optional<User> userOptional = Optional.empty();
+        try (Connection connection = DBConnectionUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_EMAIL)) {
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setUserId(resultSet.getLong(1));
+                user.setEmail(resultSet.getString(2));
+                user.setUsername(resultSet.getString(3));
+                user.setFirstname(resultSet.getString(4));
+                user.setLastname(resultSet.getString(5));
+                user.setRole(Role.valueOf(resultSet.getString(6).toUpperCase()));
+                userOptional = Optional.of(user);
+            }
+            return userOptional;
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.error(e);
+            throw new DaoException(e);
+        }
+    }
 
+    @Override
+    public Optional<User> findById(long id) throws DaoException{
+        Optional<User> userOptional = Optional.empty();
+        try (Connection connection = DBConnectionUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_USERNAME)) {
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setUserId(resultSet.getLong(1));
+                user.setEmail(resultSet.getString(2));
+                user.setUsername(resultSet.getString(3));
+                user.setFirstname(resultSet.getString(4));
+                user.setLastname(resultSet.getString(5));
+                user.setRole(Role.valueOf(resultSet.getString(6).toUpperCase()));
+                userOptional = Optional.of(user);
+            }
+            return userOptional;
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.error(e);
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) throws DaoException{
+        Optional<User> userOptional = Optional.empty();
+        try (Connection connection = DBConnectionUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_USERNAME)) {
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setUserId(resultSet.getLong(1));
+                user.setEmail(resultSet.getString(2));
+                user.setUsername(resultSet.getString(3));
+                user.setFirstname(resultSet.getString(4));
+                user.setLastname(resultSet.getString(5));
+                user.setRole(Role.valueOf(resultSet.getString(6).toUpperCase()));
+                userOptional = Optional.of(user);
+            }
+            return userOptional;
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.error(e);
+            throw new DaoException(e);
+        }
+    }
 }

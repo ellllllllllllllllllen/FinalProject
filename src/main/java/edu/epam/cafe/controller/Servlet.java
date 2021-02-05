@@ -23,15 +23,23 @@ public class Servlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException,{
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DaoException {
 
         String requestCommand = RequestParameter.COMMAND;
         String commandName = request.getParameter(requestCommand);

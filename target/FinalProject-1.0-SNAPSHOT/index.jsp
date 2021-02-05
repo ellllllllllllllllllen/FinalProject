@@ -2,8 +2,11 @@
 <html>
 <head>
     <title>Index</title>
+    <style>
+        <%@ include file="/css/main.css" %>
+    </style>
     <script>
-        function disp(form) {
+        function display(form) {
             if (form.style.display == "none") {
                 form.style.display = "block";
             } else {
@@ -23,21 +26,22 @@
     <div class="phone">
 
     </div>
-    <div class="authorization">
+    <div class="user">
 
-        <input type="button" value="Sign in" onclick="disp(document.getElementById('authorization'))" />
-        <form id="authorization" style="display: none;" action="/controller" method="post">
-            <input type="hidden" name="command" value="sign_in">
-            <input type="text" id="login" name="login" placeholder="login">
-            <input type="password" id="password" name="password" placeholder="password">
-            <input type="submit" value="sign in">
-        </form>
-        ${errorUserMessage}
+        <input type="button" id="authorize" value="Sign in" onclick="display(document.getElementById('sign_form'))" />
+        <div id="sign_form" style="display: none;">
+            <form id="sign_in"  action="/controller" method="post">
+                <input type="hidden" name="command" value="sign_in">
+                <input type="text" id="login" name="login" placeholder="login">
+                <input type="password" id="password" name="password" placeholder="password">
+                <input type="submit" value="sign in">
+            </form>
+            ${errorUserMessage}
 
-        <div id="formFooter">
-            <form action="/controller" method="get">
-                <input type="hidden" name="command" value="sign_up_page">
-                <input type="submit" value="sign up">
+            <form id="sign_up"  action="/controller" method="get">
+                <input type="hidden" name="command" value="sign_up">
+                <input type="submit" id="registration" value="click here">
+
             </form>
         </div>
 

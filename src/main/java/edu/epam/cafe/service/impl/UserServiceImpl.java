@@ -6,6 +6,9 @@ import edu.epam.cafe.entity.User;
 import edu.epam.cafe.exception.DaoException;
 import edu.epam.cafe.service.UserService;
 import edu.epam.cafe.util.PasswordEncryption;
+import edu.epam.cafe.validator.UserValidator;
+import edu.epam.cafe.validator.impl.PasswordValidator;
+import edu.epam.cafe.validator.impl.UserValidatorImpl;
 
 import java.util.Optional;
 
@@ -36,7 +39,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkPasswords(String password, String repeatPassword) {
-        return false;
+        boolean isCorrect = false;
+        UserValidator userValidator = new UserValidatorImpl();
+        if (userValidator.validatePassword(password) && password.equals(repeatPassword)) {
+            isCorrect = true;
+        }
+        return isCorrect;
     }
 
     @Override

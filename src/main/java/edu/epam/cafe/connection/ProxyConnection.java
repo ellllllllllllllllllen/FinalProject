@@ -1,11 +1,18 @@
 package edu.epam.cafe.connection;
 
+import edu.epam.cafe.exception.ConnectionPoolException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
 class ProxyConnection implements Connection {
+
+    private final Logger logger = LogManager.getLogger(ProxyConnection.class);
 
     private Connection connection;
 
@@ -54,13 +61,12 @@ class ProxyConnection implements Connection {
     }
 
     @Override
-    public void close() throws SQLException {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        try {
-            connectionPool.releaseConnection(this);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public void close(){
+        ConnectionPool.INSTANCE.releaseConnection(this);
+    }
+
+    void reallyClose() throws SQLException {
+        connection.close();
     }
 
     @Override

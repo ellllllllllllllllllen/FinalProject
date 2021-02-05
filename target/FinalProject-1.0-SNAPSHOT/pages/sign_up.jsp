@@ -5,7 +5,7 @@
     <title>Sign Up</title>
 </head>
 <body>
-<div class="">
+<div class="sign_up">
     <form action="/controller" method="post">
         <input type="hidden" name="command" value="sign_up">
         <input type="text" id="email" name="email" placeholder="email">
@@ -22,7 +22,7 @@
         <input type="submit" value="sign up">
     </form>
 
-    <div class="">
+    <div class="sign_in">
         <form action="/controller" method="get">
             <input type="hidden" name="command" value="sign_in">
             <input type="submit" value="sign in">

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class UsernameValidator implements Validator<String> {
 
     //Буквы, цифры, дефисы и подчёркивания, от 3 до 16 символов.
-    private static final Pattern USERNAME_REGEX = Pattern.compile("^[a-z0-9_-]{3,16}$");
+    private static final Pattern USERNAME_REGEX = Pattern.compile("^[a-z0-9]{3,16}$");
 
     @Override
     public boolean validate(String username) {

@@ -1,6 +1,7 @@
 package edu.epam.cafe.command.impl;
 
 import edu.epam.cafe.command.Command;
+import edu.epam.cafe.command.RequestParameter;
 import edu.epam.cafe.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,9 +20,8 @@ public class PostSignInCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
 
-        String userName = request.getParameter("username");
-        String password = request.getParameter("password");
-
+        String username = request.getParameter(RequestParameter.USERNAME);
+        String password = request.getParameter(RequestParameter.PASSWORD);
 
         return null;
     }

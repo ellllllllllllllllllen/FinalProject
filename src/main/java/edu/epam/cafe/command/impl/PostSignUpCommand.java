@@ -6,6 +6,7 @@ import edu.epam.cafe.command.RequestParameter;
 import edu.epam.cafe.controller.PagePath;
 import edu.epam.cafe.entity.Role;
 import edu.epam.cafe.entity.User;
+import edu.epam.cafe.exception.CommandException;
 import edu.epam.cafe.exception.DaoException;
 import edu.epam.cafe.service.UserService;
 import edu.epam.cafe.validator.UserValidator;
@@ -25,7 +26,7 @@ public class PostSignUpCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws DaoException {
+    public String execute(HttpServletRequest request) throws CommandException {
         String email = request.getParameter(RequestParameter.EMAIL);
         String username = request.getParameter(RequestParameter.USERNAME);
         String firstName = request.getParameter(RequestParameter.FIRSTNAME);
@@ -68,10 +69,14 @@ public class PostSignUpCommand implements Command {
             correct = false;
         }
         if(correct){
-            logger.info("Все норм создается юзер");
-            User user = new User(email, username, firstName, lastName, Role.USER);
-            userService.createUser(user, password);
-            page = PagePath.SIGN_IN;
+            try {
+                logger.info("Все норм создается юзер");
+                User user = new User(email, username, firstName, lastName, Role.USER);
+                userService.createUser(user, password);
+                page = PagePath.SIGN_IN;
+            }catch (DaoException e){
+                throw new CommandException(e);
+            }
         } else {
             logger.info("Что-то не так перенаправляет на страницу signup");
             page = PagePath.SIGN_UP;

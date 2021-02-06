@@ -8,9 +8,11 @@ import edu.epam.cafe.entity.Role;
 import edu.epam.cafe.entity.User;
 import edu.epam.cafe.exception.ConnectionPoolException;
 import edu.epam.cafe.exception.DaoException;
+import edu.epam.cafe.util.PasswordEncryption;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.sql.PooledConnection;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,12 +23,14 @@ import java.util.Optional;
 
 import static edu.epam.cafe.dao.Queries.FIND_USER_BY_EMAIL;
 import static edu.epam.cafe.dao.Queries.FIND_USER_BY_USERNAME;
+//import static edu.epam.cafe.dao.Queries.FIND_USER_BY_USERNAME_AND_PASSWORD;
 
 public class UserDao implements BaseDao {
     private static final Logger logger = LogManager.getLogger(UserDao.class);
     private static final UserDao instance = new UserDao();
     private static final String ADD_USER = "INSERT INTO users (`email`, `username`, `pass`, `firstname`, `lastname`, `user_role`) VALUES (?, ?, ?, ?, ?, ?);";
-
+    private static final String FIND_USER_BY_USERNAME = "SELECT id, email, username, firstname, lastname, user_role FROM users WHERE username = ?";
+    private static final String FIND_USER_BY_USERNAME_AND_PASSWORD = "SELECT id, email, username, firstname, lastname, user_role FROM users WHERE username = ? AND pass = ?";
     private UserDao(){
 
     }
@@ -74,7 +78,7 @@ public class UserDao implements BaseDao {
     @Override
     public Optional<User> findByEmail(String email) throws DaoException {
         Optional<User> userOptional = Optional.empty();
-        try (Connection connection = DBConnectionUtil.getConnection();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_EMAIL)) {
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -89,7 +93,7 @@ public class UserDao implements BaseDao {
                 userOptional = Optional.of(user);
             }
             return userOptional;
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
             logger.error(e);
             throw new DaoException(e);
         }
@@ -98,7 +102,7 @@ public class UserDao implements BaseDao {
     @Override
     public Optional<User> findById(long id) throws DaoException{
         Optional<User> userOptional = Optional.empty();
-        try (Connection connection = DBConnectionUtil.getConnection();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_USERNAME)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -113,7 +117,7 @@ public class UserDao implements BaseDao {
                 userOptional = Optional.of(user);
             }
             return userOptional;
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
             logger.error(e);
             throw new DaoException(e);
         }
@@ -122,7 +126,7 @@ public class UserDao implements BaseDao {
     @Override
     public Optional<User> findByUsername(String username) throws DaoException{
         Optional<User> userOptional = Optional.empty();
-        try (Connection connection = DBConnectionUtil.getConnection();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_USERNAME)) {
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -137,7 +141,32 @@ public class UserDao implements BaseDao {
                 userOptional = Optional.of(user);
             }
             return userOptional;
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
+            logger.error(e);
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public Optional<User> findByUsernameAndPassword(String username, String password) throws DaoException{
+        Optional<User> userOptional = Optional.empty();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_USERNAME_AND_PASSWORD)) {
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, PasswordEncryption.encrypt(password));
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setUserId(resultSet.getLong(1));
+                user.setEmail(resultSet.getString(2));
+                user.setUsername(resultSet.getString(3));
+                user.setFirstname(resultSet.getString(4));
+                user.setLastname(resultSet.getString(5));
+                user.setRole(Role.valueOf(resultSet.getString(6).toUpperCase()));
+                userOptional = Optional.of(user);
+            }
+            return userOptional;
+        } catch (SQLException e) {
             logger.error(e);
             throw new DaoException(e);
         }

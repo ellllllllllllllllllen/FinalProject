@@ -63,6 +63,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> findUserByUsernameAndPassword(String username, String password) throws ServiceException {
+        try {
+            Optional<User> user = userDao.findByUsernameAndPassword(username, password);
+            return user;
+        }catch (DaoException e){
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public boolean checkPasswords(String password, String repeatPassword) {
         boolean isCorrect = false;
         UserValidator userValidator = new UserValidatorImpl();
@@ -85,6 +95,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isUsernameExist(String username) throws ServiceException {
         Optional<User> user = findUserByUsername(username);
+        boolean isExist = false;
+        if (user.isPresent()) {
+            isExist = true;
+        }
+        return isExist;
+    }
+
+    @Override
+    public boolean isUserExist(String username, String password) throws ServiceException{
+        Optional<User> user = findUserByUsernameAndPassword(username, password);
         boolean isExist = false;
         if (user.isPresent()) {
             isExist = true;

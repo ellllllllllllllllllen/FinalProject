@@ -15,4 +15,5 @@ public interface BaseDao{
     Optional<User> findByEmail(String email) throws DaoException;
     Optional<User> findById(long id) throws DaoException;
     Optional<User> findByUsername(String username) throws DaoException;
+    Optional<User> findByUsernameAndPassword(String username, String password) throws DaoException;
 }

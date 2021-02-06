@@ -3,6 +3,7 @@ package edu.epam.cafe.controller;
 import edu.epam.cafe.command.Command;
 import edu.epam.cafe.command.CommandProvider;
 import edu.epam.cafe.command.RequestParameter;
+import edu.epam.cafe.exception.CommandException;
 import edu.epam.cafe.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,34 +23,31 @@ public class Servlet extends HttpServlet {
 
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (DaoException e) {
-            e.printStackTrace();
-        }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException{
+        processRequest(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (DaoException e) {
-            e.printStackTrace();
-        }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException{
+        processRequest(request, response);
     }
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DaoException {
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException{
 
         String requestCommand = RequestParameter.COMMAND;
         String commandName = request.getParameter(requestCommand);
 
         Optional<Command> command = CommandProvider.defineCommand(commandName);
         String page = PagePath.INDEX;
-        if(command.isPresent()) {
-            page = command.get().execute(request);
+        try{
+            if(command.isPresent()) {
+                page = command.get().execute(request);
+            }
+            RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+            dispatcher.forward(request, response);
+        }catch (DaoException | IOException | CommandException e){
+            throw new ServletException(e);
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher(page);
-        dispatcher.forward(request, response);
+
     }
 }

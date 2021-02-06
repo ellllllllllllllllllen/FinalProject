@@ -13,13 +13,13 @@ public class Queries {
 
     public static final String FIND_USER_BY_EMAIL = "SELECT email, username, firstname, lastname, user_role" +
             "FROM users WHERE email = ?";
-    public static final String FIND_USER_BY_USERNAME = "SELECT email, username, firstname, lastname, user_role" +
+    public static final String FIND_USER_BY_USERNAME = "SELECT id, email, username, firstname, lastname, user_role" +
             "FROM users WHERE username = ?";
 
     private static final String FIND_USER_BY_EMAIL_AND_PASSWORD = "SELECT email, username, firstname, lastname, user_role" +
             "FROM users WHERE email = ? " + "AND pass = ?";
 
-    private static final String FIND_USER_BY_USERNAME_AND_PASSWORD = "SELECT email, username, firstname, lastname, user_role" +
+    public static final String FIND_USER_BY_USERNAME_AND_PASSWORD = "SELECT email, username, firstname, lastname, user_role" +
             "FROM users WHERE username = ? " + "AND pass = ?";
 
     public static String getSelectAllUsers() {

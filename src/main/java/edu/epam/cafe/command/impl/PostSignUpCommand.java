@@ -8,6 +8,7 @@ import edu.epam.cafe.entity.Role;
 import edu.epam.cafe.entity.User;
 import edu.epam.cafe.exception.CommandException;
 import edu.epam.cafe.exception.DaoException;
+import edu.epam.cafe.exception.ServiceException;
 import edu.epam.cafe.service.UserService;
 import edu.epam.cafe.validator.UserValidator;
 import org.apache.logging.log4j.LogManager;
@@ -34,53 +35,54 @@ public class PostSignUpCommand implements Command {
         String password = request.getParameter(RequestParameter.PASSWORD);
         String repeatPassword = request.getParameter(RequestParameter.REPEAT_PASSWORD);
         boolean correct = true;
-        String page = null;
+        String page;
 
-        if(userService.isEmailExist(email)){
-            request.setAttribute(ErrorMessage.MAIL, "Email is already exists.");
-            logger.info("Email is already exists.");
-            correct = false;
-        }
-        if(!userValidator.validateEmail(email)){
-            request.setAttribute(ErrorMessage.MAIL, "Email is incorrect.");
-            correct = false;
-        }
-        if(userService.isUsernameExist(username)){
-            request.setAttribute(ErrorMessage.USERNAME, "Username is already exists.");
-            System.out.println("Username is already exists.");
-            correct = false;
-        }
-        if(!userValidator.validateUsername(username)){
-            request.setAttribute(ErrorMessage.USERNAME, "Username is incorrect.");
-            logger.info("Username is incorrect.");
-            correct = false;
-        }
-        if(!userValidator.validateFirstname(firstName)){
-            request.setAttribute(ErrorMessage.FIRSTNAME, "Firstname cannot be empty.");
-            correct = false;
-        }
-        if(!userValidator.validateLastname(lastName)){
-            request.setAttribute(ErrorMessage.LASTNAME, "Lastname cannot be empty.");
-            correct = false;
-        }
-        if(!userService.checkPasswords(password, repeatPassword)){
-            request.setAttribute(ErrorMessage.PASSWORD, "Password is incorrect or repeat password does not match the password.");
-            logger.info("Password is incorrect or repeat password does not match the password.");
-            correct = false;
-        }
-        if(correct){
-            try {
+        try {
+            if (userService.isEmailExist(email)) {
+                request.setAttribute(ErrorMessage.MAIL, "Email is already exists.");
+                logger.info("Email is already exists.");
+                correct = false;
+            }
+            if (!userValidator.validateEmail(email)) {
+                request.setAttribute(ErrorMessage.MAIL, "Email is incorrect.");
+                correct = false;
+            }
+            if (userService.isUsernameExist(username)) {
+                request.setAttribute(ErrorMessage.USERNAME, "Username is already exists.");
+                System.out.println("Username is already exists.");
+                correct = false;
+            }
+            if (!userValidator.validateUsername(username)) {
+                request.setAttribute(ErrorMessage.USERNAME, "Username is incorrect.");
+                logger.info("Username is incorrect.");
+                correct = false;
+            }
+            if (!userValidator.validateFirstname(firstName)) {
+                request.setAttribute(ErrorMessage.FIRSTNAME, "Firstname cannot be empty.");
+                correct = false;
+            }
+            if (!userValidator.validateLastname(lastName)) {
+                request.setAttribute(ErrorMessage.LASTNAME, "Lastname cannot be empty.");
+                correct = false;
+            }
+            if (!userService.checkPasswords(password, repeatPassword)) {
+                request.setAttribute(ErrorMessage.PASSWORD, "Password is incorrect or repeat password does not match the password.");
+                logger.info("Password is incorrect or repeat password does not match the password.");
+                correct = false;
+            }
+            if (correct) {
                 logger.info("Все норм создается юзер");
                 User user = new User(email, username, firstName, lastName, Role.USER);
                 userService.createUser(user, password);
                 page = PagePath.SIGN_IN;
-            }catch (DaoException e){
-                throw new CommandException(e);
+
+            } else {
+                logger.info("Что-то не так перенаправляет на страницу signup");
+                page = PagePath.SIGN_UP;
             }
-        } else {
-            logger.info("Что-то не так перенаправляет на страницу signup");
-            page = PagePath.SIGN_UP;
+            return page;
+        }catch (ServiceException e){
+            throw new CommandException(e);
         }
-        return page;
     }
 }

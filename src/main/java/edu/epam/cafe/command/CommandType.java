@@ -11,7 +11,7 @@ import edu.epam.cafe.validator.impl.UsernameValidator;
 public enum CommandType {
 
 
-//    SIGN_IN(new PostSignInCommand()),
+    sign_in(new PostSignInCommand(new UserServiceImpl())),
     sign_up(new PostSignUpCommand(new UserServiceImpl(), new UserValidatorImpl()));
 //    LOGOUT(new PostLogoutCommand())
 

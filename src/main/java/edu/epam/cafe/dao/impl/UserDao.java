@@ -46,9 +46,7 @@ public class UserDao implements BaseDao {
     @Override
     public boolean add(User user, String password) throws DaoException {
         boolean update;
-//        try (Connection connection = DBConnectionUtil.getConnection();
-//             PreparedStatement preparedStatement = connection.prepareStatement(Queries.ADD_USER)) {
-        try (Connection connection = DBConnectionUtil.getConnection();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER)) {
             preparedStatement.setString(1, user.getEmail());
             preparedStatement.setString(2, user.getUsername());
@@ -58,9 +56,9 @@ public class UserDao implements BaseDao {
             preparedStatement.setString(6, user.getRole().toString());
 
             update = preparedStatement.executeUpdate() > 0;
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
 //            logger.error(e);
-            throw new DaoException(e);
+            throw new DaoException(e);  //Unknown column 'email' in 'field list'
         }
         return update;
     }

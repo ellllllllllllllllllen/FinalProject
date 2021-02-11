@@ -32,7 +32,7 @@
         <div id="sign_form" style="display: none;">
             <form id="sign_in"  action="/controller" method="post">
                 <input type="hidden" name="command" value="sign_in">
-                <input type="text" id="login" name="login" placeholder="login">
+                <input type="text" id="username" name="username" placeholder="username">
                 <input type="password" id="password" name="password" placeholder="password">
                 <input type="submit" value="sign in">
             </form>

@@ -2,12 +2,11 @@ package edu.epam.cafe.command.impl;
 
 import edu.epam.cafe.command.Command;
 import edu.epam.cafe.command.ErrorMessage;
-import edu.epam.cafe.command.RequestParameter;
+import edu.epam.cafe.command.factory.CommandFactory;
 import edu.epam.cafe.controller.PagePath;
 import edu.epam.cafe.entity.Role;
 import edu.epam.cafe.entity.User;
 import edu.epam.cafe.exception.CommandException;
-import edu.epam.cafe.exception.DaoException;
 import edu.epam.cafe.exception.ServiceException;
 import edu.epam.cafe.service.UserService;
 import edu.epam.cafe.validator.UserValidator;
@@ -28,12 +27,12 @@ public class PostSignUpCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
-        String email = request.getParameter(RequestParameter.EMAIL);
-        String username = request.getParameter(RequestParameter.USERNAME);
-        String firstName = request.getParameter(RequestParameter.FIRSTNAME);
-        String lastName = request.getParameter(RequestParameter.LASTNAME);
-        String password = request.getParameter(RequestParameter.PASSWORD);
-        String repeatPassword = request.getParameter(RequestParameter.REPEAT_PASSWORD);
+        String email = request.getParameter(CommandFactory.EMAIL);
+        String username = request.getParameter(CommandFactory.USERNAME);
+        String firstName = request.getParameter(CommandFactory.FIRSTNAME);
+        String lastName = request.getParameter(CommandFactory.LASTNAME);
+        String password = request.getParameter(CommandFactory.PASSWORD);
+        String repeatPassword = request.getParameter(CommandFactory.REPEAT_PASSWORD);
         boolean correct = true;
         String page;
 

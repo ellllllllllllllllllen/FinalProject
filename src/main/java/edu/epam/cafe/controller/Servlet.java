@@ -2,7 +2,8 @@ package edu.epam.cafe.controller;
 
 import edu.epam.cafe.command.Command;
 import edu.epam.cafe.command.CommandProvider;
-import edu.epam.cafe.command.RequestParameter;
+import edu.epam.cafe.command.factory.CommandFactory;
+import edu.epam.cafe.command.factory.CommandFactoryImpl;
 import edu.epam.cafe.exception.CommandException;
 import edu.epam.cafe.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
@@ -34,12 +35,14 @@ public class Servlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException{
 
-        String requestCommand = RequestParameter.COMMAND;
-        String commandName = request.getParameter(requestCommand);
 
-        Optional<Command> command = CommandProvider.defineCommand(commandName);
-        String page = PagePath.INDEX;
         try{
+            String requestCommand = CommandFactory.COMMAND;
+            String commandName = request.getParameter(requestCommand);
+
+//        Optional<Command> command = CommandProvider.defineCommand(commandName);
+            Optional<Command> command = CommandFactoryImpl.getInstance().createCommand(commandName);
+            String page = PagePath.INDEX;
             if(command.isPresent()) {
                 page = command.get().execute(request);
             }

@@ -28,19 +28,15 @@ public class PostSignInCommand implements Command {
             String username = request.getParameter(CommandFactory.USERNAME);
             String password = request.getParameter(CommandFactory.PASSWORD);
 
-            System.out.println("get parameter username: " + username);
-            System.out.println("get parameter password: " + password);
 
             if(!userService.isUsernameExist(username)) {
                 request.setAttribute("errorUserMessage", "Incorrect username");
                 logger.info("Username is not exists. Page = sign in");
-                System.out.println("Username is not exists");
                 page = PagePath.SIGN_IN;
                 correct = false;
             }
             if(!userService.isUserExist(username, password)) {
                 request.setAttribute("errorUserMessage", "Incorrect password");
-                System.out.println("User is not exists");
                 logger.info("User is not exists. Page = sign in");
                 page = PagePath.SIGN_IN;
                 correct = false;
@@ -49,7 +45,6 @@ public class PostSignInCommand implements Command {
                 logger.info("Authorize is OK. Page = index");
                 page = PagePath.INDEX;
             }else {
-                System.out.println("Something wrong");
                 logger.info("Что-то не так");
                 page = PagePath.ERROR;
             }
@@ -57,6 +52,5 @@ public class PostSignInCommand implements Command {
         }catch (ServiceException e){
             throw new CommandException(e);
         }
-
     }
 }

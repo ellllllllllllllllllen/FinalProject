@@ -31,6 +31,8 @@ public class UserDao implements BaseDao {
     private static final String ADD_USER = "INSERT INTO users (`email`, `username`, `pass`, `firstname`, `lastname`, `user_role`) VALUES (?, ?, ?, ?, ?, ?);";
     private static final String FIND_USER_BY_USERNAME = "SELECT id, email, username, firstname, lastname, user_role FROM users WHERE username = ?";
     private static final String FIND_USER_BY_USERNAME_AND_PASSWORD = "SELECT id, email, username, firstname, lastname, user_role FROM users WHERE username = ? AND pass = ?";
+    private static final String FIND_USER_BY_EMAIL = "SELECT email, username, firstname, lastname, user_role FROM users WHERE email = ?";
+
     private UserDao(){
 
     }

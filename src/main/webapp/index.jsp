@@ -38,11 +38,13 @@
             </form>
             ${errorUserMessage}
 
-            <form id="sign_up"  action="/controller" method="get">
-                <input type="hidden" name="command" value="sign_up">
-                <input type="submit" id="registration" value="click here">
+<%--            <form id="sign_up"  action="/controller" method="get">--%>
+<%--                <input type="hidden" name="command" value="sign_up">--%>
+<%--                <input type="submit" id="registration" value="click here">--%>
+<%--                --%>
 
-            </form>
+<%--            </form>--%>
+            <a href="pages/sign_up.jsp">signup</a>
         </div>
 
     </div>

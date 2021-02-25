@@ -5,7 +5,7 @@ import edu.epam.cafe.command.factory.CommandFactory;
 import edu.epam.cafe.controller.PagePath;
 import edu.epam.cafe.exception.CommandException;
 import edu.epam.cafe.exception.ServiceException;
-import edu.epam.cafe.service.UserService;
+import edu.epam.cafe.model.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,13 +30,13 @@ public class PostSignInCommand implements Command {
 
 
             if(!userService.isUsernameExist(username)) {
-                request.setAttribute("errorUserMessage", "Incorrect username");
+                request.setAttribute("errorUserMessage", "Incorrect username or password");
                 logger.info("Username is not exists. Page = sign in");
                 page = PagePath.SIGN_IN;
                 correct = false;
             }
             if(!userService.isUserExist(username, password)) {
-                request.setAttribute("errorUserMessage", "Incorrect password");
+                request.setAttribute("errorUserMessage", "Incorrect username or password");
                 logger.info("User is not exists. Page = sign in");
                 page = PagePath.SIGN_IN;
                 correct = false;
@@ -46,7 +46,7 @@ public class PostSignInCommand implements Command {
                 page = PagePath.INDEX;
             }else {
                 logger.info("Что-то не так");
-                page = PagePath.ERROR;
+                page = PagePath.INDEX;
             }
             return page;
         }catch (ServiceException e){

@@ -5,7 +5,7 @@ import edu.epam.cafe.command.impl.PostLogoutCommand;
 import edu.epam.cafe.command.impl.PostSignInCommand;
 import edu.epam.cafe.command.impl.PostSignUpCommand;
 import edu.epam.cafe.exception.CommandException;
-import edu.epam.cafe.service.impl.UserServiceImpl;
+import edu.epam.cafe.model.service.impl.UserServiceImpl;
 import edu.epam.cafe.validator.impl.UserValidatorImpl;
 
 import java.util.Optional;

@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 //import static edu.epam.cafe.model.dao.Queries.FIND_USER_BY_USERNAME_AND_PASSWORD;
@@ -24,6 +25,7 @@ public class UserDao implements BaseDao {
     private static final String FIND_USER_BY_USERNAME = "SELECT id, email, username, firstname, lastname, user_role FROM users WHERE username = ?";
     private static final String FIND_USER_BY_USERNAME_AND_PASSWORD = "SELECT id, email, username, firstname, lastname, user_role FROM users WHERE username = ? AND pass = ?";
     private static final String FIND_USER_BY_EMAIL = "SELECT email, username, firstname, lastname, user_role FROM users WHERE email = ?";
+    private static final String SELECT_ALL_USERS = "SELECT email, username, firstname, lastname, user_role FROM users;
 
     private UserDao(){
 
@@ -34,7 +36,25 @@ public class UserDao implements BaseDao {
     }
     @Override
     public List findAll() throws DaoException {
-        return null;
+        List<User> users = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setUserId(resultSet.getLong(1));
+                user.setEmail(resultSet.getString(2));
+                user.setUsername(resultSet.getString(3));
+                user.setFirstname(resultSet.getString(4));
+                user.setLastname(resultSet.getString(5));
+                user.setRole(Role.valueOf(resultSet.getString(6).toUpperCase()));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            logger.error(e);
+            throw new DaoException(e);
+        }
+        return users;
     }
 
     @Override

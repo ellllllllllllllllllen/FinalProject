@@ -74,18 +74,20 @@
 
     </div>
     <div class="internationalization">
-
+        <div class="ru">
+            <button><img src="img/ru.jpg" height="50" width="50"></button>
+        </div>
+        <div class="en">
+            <img src="img/en.jpg" height="50" width="50">
+        </div>
     </div>
 </section>
 <section class="menu">
     <div class="buttons">
-        <button>Лапша</button>
-        <button>Роллы</button>
-        <button>Супы</button>
-        <button>Обед</button>
-        <button>Десерты</button>
+        <button>Пирожные</button>
+        <button>Торты</button>
+        <button>Наборы</button>
         <button>Напитки</button>
-        <button>Закуски</button>
     </div>
 
 </section>

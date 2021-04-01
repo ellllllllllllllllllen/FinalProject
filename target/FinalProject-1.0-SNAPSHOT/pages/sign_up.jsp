@@ -25,7 +25,7 @@
                 <h4>${errorPasswordMessage}</h4>
             <button type="submit">Зарегистрироваться</button>
 <%--            <input type="submit" value="sign up">--%>
-            <p class="message"><a href="pages/index.jsp">Назад</a></p>
+            <p class="message"><a href="/index.jsp">Назад</a></p>
         </form>
     </div>
 

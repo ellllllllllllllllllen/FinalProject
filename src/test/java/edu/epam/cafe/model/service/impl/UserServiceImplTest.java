@@ -14,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,10 +32,10 @@ public class UserServiceImplTest {
 
 
     @Test
-    public void isEmailExistReturnTrue() throws ServiceException, DaoException {
-        String email = "ellen@mail.ru";
+    public void isEmailExistReturnFalse() throws ServiceException, DaoException {
+        String email = "elen@mail.ru";
 
-        boolean expected = true;
+        boolean expected = false;
 
         List<User> expectedUserList = Arrays.asList(
                 new User("ellen@mail.ru", "ellen", "Elena", "Zavadskaya", Role.USER),
@@ -66,23 +65,4 @@ public class UserServiceImplTest {
         boolean actual = userService.isUsernameExist(username);
         Assert.assertEquals(expected, actual);
     }
-
-    @Test
-    public void isUserExistReturnFalse() throws ServiceException, DaoException {
-
-        String username = "username";
-
-        boolean expected = false;
-
-        List<User> expectedUserList = Arrays.asList(
-                new User("ellen@mail.ru", "ellen", "Elena", "Zavadskaya", Role.USER),
-                new User("lytkina@mail.ru", "lytkina", "Olga", "Lytkina", Role.USER),
-                new User("danik@mail.ru", "danik", "Danik", "Larchenko", Role.USER));
-
-        Mockito.when(userDaoMock.findAll()).thenReturn(expectedUserList);
-
-        boolean actual = userService.isUsernameExist(username);
-        Assert.assertEquals(expected, actual);
-    }
-
 }

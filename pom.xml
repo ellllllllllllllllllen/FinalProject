@@ -67,6 +67,18 @@
                     <target>9</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.4.18.v20190429</version>
+                <configuration>
+                    <httpConnector>
+                        <port>8081</port>
+                    </httpConnector>
+                    <!-- scans your project for any changes to hot swap it to server -->
+                    <scanIntervalSeconds>5</scanIntervalSeconds>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

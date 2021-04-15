@@ -25,7 +25,7 @@ public class UserDao implements BaseDao {
     private static final String FIND_USER_BY_USERNAME = "SELECT id, email, username, firstname, lastname, user_role FROM users WHERE username = ?";
     private static final String FIND_USER_BY_USERNAME_AND_PASSWORD = "SELECT id, email, username, firstname, lastname, user_role FROM users WHERE username = ? AND pass = ?";
     private static final String FIND_USER_BY_EMAIL = "SELECT email, username, firstname, lastname, user_role FROM users WHERE email = ?";
-    private static final String SELECT_ALL_USERS = "SELECT email, username, firstname, lastname, user_role FROM users;
+    private static final String SELECT_ALL_USERS = "SELECT email, username, firstname, lastname, user_role FROM users";
 
     private UserDao(){
 

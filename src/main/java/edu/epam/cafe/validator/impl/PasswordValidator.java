@@ -7,9 +7,9 @@ import java.util.regex.Pattern;
 
 public class PasswordValidator implements Validator<String> {
 
-    //Буквы, цифры, дефисы и подчёркивания, от 8 до 18 символов.
+    //Буквы, цифры, от 8 до 18 символов.
     private static final Pattern PASSWORD_REGEX = Pattern
-            .compile("^[a-z0-9A-Z]{8,18}$");
+            .compile("^[a-z0-9]{8,18}$");
 
     @Override
     public boolean validate(String password) {

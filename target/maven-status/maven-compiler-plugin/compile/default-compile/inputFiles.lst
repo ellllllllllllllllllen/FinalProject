@@ -1,11 +1,10 @@
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/model/dao/impl/UserDao.java
-/home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/command/CommandProvider.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/validator/impl/LastnameValidator.java
-/home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/command/impl/PageCommand.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/command/impl/PostLogoutCommand.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/validator/impl/UsernameValidator.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/model/entity/Role.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/exception/ServiceException.java
+/home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/command/impl/GetPageCommand.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/validator/Validator.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/command/ErrorMessage.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/controller/PagePath.java

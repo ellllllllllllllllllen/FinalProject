@@ -1,7 +1,6 @@
 package edu.epam.cafe.controller;
 
 import edu.epam.cafe.command.Command;
-import edu.epam.cafe.command.CommandProvider;
 import edu.epam.cafe.command.factory.CommandFactory;
 import edu.epam.cafe.command.factory.CommandFactoryImpl;
 import edu.epam.cafe.exception.CommandException;
@@ -34,18 +33,14 @@ public class Servlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException{
-
-
+        String page = null;
         try{
             String requestCommand = CommandFactory.COMMAND;
             String commandName = request.getParameter(requestCommand);
 
-//        Optional<Command> command = CommandProvider.defineCommand(commandName);
-            Optional<Command> command = CommandFactoryImpl.getInstance().createCommand(commandName);
-            String page = PagePath.INDEX;
-            if(command.isPresent()) {
-                page = command.get().execute(request);
-            }
+            Command command = CommandFactoryImpl.getInstance().createCommand(commandName);
+
+            page = command.execute(request);
             RequestDispatcher dispatcher = request.getRequestDispatcher(page);
             dispatcher.forward(request, response);
         }catch (DaoException | IOException | CommandException e){

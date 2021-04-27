@@ -15,9 +15,12 @@ public interface CommandFactory {
     String REPEAT_PASSWORD = "repeat_password";
 
     String COMMAND = "command";
-    String POST_SIGN_IN_COMMAND = "sign_in";
-    String POST_SIGN_UP_COMMAND = "sign_up";
-    String POST_LOGOUT_COMMAND = "logout";
+    String SIGN_IN = "sign_in";
+    String SIGN_UP = "sign_up";
+    String LOGOUT = "logout";
 
-    Optional<Command> createCommand(String commandName) throws CommandException;
+    String SIGN_IN_PAGE = "sign_in_page";
+    String SIGN_UP_PAGE = "sign_up_page";
+
+    Command createCommand(String commandName) throws CommandException;
 }

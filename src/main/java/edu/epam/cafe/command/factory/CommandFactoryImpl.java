@@ -8,13 +8,20 @@ import edu.epam.cafe.exception.CommandException;
 import edu.epam.cafe.model.service.impl.UserServiceImpl;
 import edu.epam.cafe.validator.impl.UserValidatorImpl;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class CommandFactoryImpl implements CommandFactory{
 
     private static CommandFactoryImpl instance;
+    Map<String, Command> commands = new HashMap<>();
 
-    private CommandFactoryImpl() { }
+    private CommandFactoryImpl() {
+        commands.put(CommandFactory.SIGN_IN, new PostSignInCommand());
+        commands.put(CommandFactory.SIGN_UP, new PostSignUpCommand());
+        commands.put(CommandFactory.LOGOUT, new PostLogoutCommand());
+    }
 
     public static CommandFactoryImpl getInstance() {
         if (instance == null) {
@@ -24,45 +31,8 @@ public class CommandFactoryImpl implements CommandFactory{
         return instance;
     }
 
-//    @Override
-//    public Command createCommand(String commandName) throws CommandException {
-//        Command command;
-//        switch (commandName) {
-//            default:
-//                throw new CommandException("Unknown command " + commandName);
-//            case POST_SIGN_UP_COMMAND:
-//                command = new PostSignUpCommand(new UserServiceImpl(), new UserValidatorImpl());
-//                break;
-//            case POST_SIGN_IN_COMMAND:
-//                command = new PostSignInCommand(new UserServiceImpl());
-//                break;
-//            case POST_LOGOUT_COMMAND:
-//                command = new PostLogoutCommand();
-//                break;
-//        }
-//        return command;
-//    }
-
     @Override
-    public Optional<Command> createCommand(String commandName) throws CommandException {
-        Optional<Command> optionalCommand;
-        Command command;
-        switch (commandName) {
-            default:
-                throw new CommandException("Unknown command " + commandName);
-            case POST_SIGN_UP_COMMAND:
-                command = new PostSignUpCommand(new UserServiceImpl(), new UserValidatorImpl());
-                optionalCommand = Optional.of(command);
-                break;
-            case POST_SIGN_IN_COMMAND:
-                command = new PostSignInCommand(new UserServiceImpl());
-                optionalCommand = Optional.of(command);
-                break;
-            case POST_LOGOUT_COMMAND:
-                command = new PostLogoutCommand();
-                optionalCommand = Optional.of(command);
-                break;
-        }
-        return optionalCommand;
+    public Command createCommand(String commandName){
+        return commands.get(commandName);
     }
 }

@@ -3,10 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Home</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <title>Menu</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -25,13 +22,7 @@
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/slicknav.css">
     <link rel="stylesheet" href="css/style.css">
-    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
-<%--    <style>--%>
-<%--        <%@ include file="/css/main.css" %>--%>
-<%--    </style>--%>
-    <script>
-        $('.carousel').carousel()
-    </script>
+
 </head>
 <body>
 <header>
@@ -44,7 +35,7 @@
                             <nav>
                                 <ul id="navigation">
                                     <li><a class="active" href="index.html">Home</a></li>
-                                    <li><a href="Menu.html">Menu</a></li>
+                                    <li><a href="menu.jsp">Menu</a></li>
                                     <li><a href="about.html">About</a></li>
                                     <li><a href="contact.html">Contacts</a></li>
                                 </ul>
@@ -86,7 +77,8 @@
                                             <button type="submit" class="btn btn-outline-warning">Sign In</button>
                                         </form>
                                         <div class="dropdown-divider"></div>
-                                        <button type="button" class="btn btn-outline-warning">New around here? Sign up</button>
+<%--                                        <button type="button" class="btn btn-outline-warning">New around here? Sign up</button>--%>
+                                        <p class="message">Not registered? <a href="pages/sign_up.jsp">Create an account</a></p>
                                     </div>
                                 </div>
                             </div>

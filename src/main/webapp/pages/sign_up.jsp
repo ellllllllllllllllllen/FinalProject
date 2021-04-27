@@ -18,33 +18,11 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/slicknav.css">
+    <script>
+        $('.alert').alert()
+    </script>
 </head>
 <body>
-
-<%--<div class="container">--%>
-<%--    <h2>SIGN IN!</h2>--%>
-<%--    <form action="#" method="post" class="was-validated">--%>
-<%--        <div class="form-group">--%>
-<%--            <label>Input your login</label>--%>
-<%--            <input name="login" class="form-control" placeholder="login" required>--%>
-<%--            <div class="invalid-feedback">${LoginIsNotUnique}</div>--%>
-
-<%--        </div>--%>
-
-<%--        <div class="form-group">--%>
-<%--            <label>Input your password</label>--%>
-<%--            <input type="password" class="form-control" name="password" placeholder="password" required>--%>
-<%--        </div>--%>
-
-<%--        <div class="form-group">--%>
-<%--            <label>Repeat your password</label>--%>
-<%--            <input type="password" class="form-control" name="repeatPassword" placeholder="repeat password" required>--%>
-<%--            <div class="invalid-feedback">${RepeatPasswordIsNotUnique}</div>--%>
-<%--        </div>--%>
-
-<%--        <button type="submit" class="btn btn-primary">Enter</button>--%>
-<%--    </form>--%>
-<%--</div>--%>
 <div class="best_burgers_area">
     <div class="container">
         <div class="row">
@@ -59,49 +37,47 @@
         <form action="/controller" method="post">
             <input type="hidden" name="command" value="sign_up">
             <div class="form-group" >
-                <div class="alert alert-danger" role="alert">
-                    ${errorEmailMessage}
-                </div>
                 <label for="email">Email address</label>
                 <input type="text" name="email" class="form-control" id="email" aria-describedby="emailHelp">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div class="form-group" >
-                <div class="alert alert-danger" role="alert">
-                    ${errorUsernameMessage}
+                <div class="alert-danger" role="alert">
+                    ${errorEmailMessage}
                 </div>
+            </div>
+
+            <div class="form-group" >
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" class="form-control">
+                <div class="alert-danger" role="alert">
+                    ${errorUsernameMessage}
+                </div>
             </div>
             <div class="form-group" >
-                <div class="alert alert-danger" role="alert">
-                    ${errorFirstnameMessage}
-                </div>
                 <label for="firstname">Firstname</label>
                 <input type="text" name="firstname" id="firstname" class="form-control">
+                <div class="alert-danger" role="alert">
+                    ${errorFirstnameMessage}
+                </div>
             </div>
             <div class="form-group" >
-                <div class="alert alert-danger" role="alert">
+                <label for="lastname">Lastname</label>
+                <input type="text" name="lastname" id="lastname" class="form-control">
+                <div class="alert-danger" role="alert">
                     ${errorLastnameMessage}
                 </div>
-                <label for="lastname">Lastname</label>
-                <input type="text" name=lastname" id="lastname" class="form-control">
             </div>
             <div class="form-group">
-                <div class="alert alert-danger" role="alert">
-                    ${errorPasswordMessage}
-                </div>
+
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password">
+                <input type="password" name="password" class="form-control" id="password">
             </div>
             <div class="form-group">
                 <label for="repeatPassword">Repeat password</label>
-                <input type="password" class="form-control" id="repeatPassword">
+                <input type="password" name="repeat_password" class="form-control" id="repeatPassword">
+                <div class="alert-danger" role="alert">
+                    ${errorPasswordMessage}
+                </div>
             </div>
-            <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
+
             <button type="submit" value="sign up" class="btn btn-primary">Submit</button>
         </form>
     </div>

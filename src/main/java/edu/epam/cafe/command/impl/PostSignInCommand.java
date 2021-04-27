@@ -5,7 +5,9 @@ import edu.epam.cafe.command.factory.CommandFactory;
 import edu.epam.cafe.controller.PagePath;
 import edu.epam.cafe.exception.CommandException;
 import edu.epam.cafe.exception.ServiceException;
+import edu.epam.cafe.model.entity.User;
 import edu.epam.cafe.model.service.UserService;
+import edu.epam.cafe.model.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,8 +18,8 @@ public class PostSignInCommand implements Command {
 
     private final UserService userService;
 
-    public PostSignInCommand(UserService userService) {
-        this.userService = userService;
+    public PostSignInCommand() {
+        this.userService = new UserServiceImpl();
     }
 
     @Override
@@ -27,7 +29,6 @@ public class PostSignInCommand implements Command {
         try {
             String username = request.getParameter(CommandFactory.USERNAME);
             String password = request.getParameter(CommandFactory.PASSWORD);
-
 
             if(!userService.isUsernameExist(username)) {
                 request.setAttribute("errorUserMessage", "Incorrect username or password");
@@ -43,10 +44,11 @@ public class PostSignInCommand implements Command {
             }
             if(correct){
                 logger.info("Authorize is OK. Page = index");
+                request.getSession(true);
                 page = PagePath.INDEX;
             }else {
                 logger.info("Что-то не так");
-                page = PagePath.INDEX;
+                page = PagePath.ERROR;
             }
             return page;
         }catch (ServiceException e){

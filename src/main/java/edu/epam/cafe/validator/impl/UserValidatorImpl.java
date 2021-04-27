@@ -13,9 +13,9 @@ public class UserValidatorImpl implements UserValidator{
             .compile("^([a-z0-9_\\.-]+)@([a-z0-9_\\.-]+)\\.([a-z\\.]{2,6})$");
     //Буквы, цифры, дефисы и подчёркивания, от 8 до 18 символов.
     private static final Pattern PASSWORD_REGEX = Pattern
-            .compile("^[a-z0-9A-Z]{8,18}$");
-    //Буквы, цифры, дефисы и подчёркивания, от 3 до 16 символов.
-    private static final Pattern USERNAME_REGEX = Pattern.compile("^[a-z0-9]{3,16}$");
+            .compile("^{8,18}$");
+    //Буквы, цифры, дефисы и подчёркивания, от 3 до 30 символов.
+    private static final Pattern USERNAME_REGEX = Pattern.compile("^[a-z]{3,30}$");
 
     @Override
     public boolean validateEmail(String email) {

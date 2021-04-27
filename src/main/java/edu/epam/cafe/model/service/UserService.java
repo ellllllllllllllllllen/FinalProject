@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface UserService {
 
     boolean createUser(User user, String password) throws ServiceException;
+
     Optional<User> findUserById(Long id) throws ServiceException;
     Optional<User> findUserByEmail(String email) throws ServiceException;
     Optional<User> findUserByUsername(String username) throws ServiceException;

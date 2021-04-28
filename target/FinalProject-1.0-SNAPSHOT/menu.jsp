@@ -106,12 +106,75 @@
 <!-- header-end -->
 
 <!-- bradcam_area_start -->
-<%--<div class="bradcam_area breadcam_bg overlay">--%>
-    <img src="img/banner/bradcam.png" alt="" class="d-block w-100">
+<div class="bradcam_area breadcam_bg overlay">
     <h3>Menu</h3>
-<%--</div>--%>
+</div>
 <!-- bradcam_area_end -->
 
+<!-- best_burgers_area_start  -->
+<<div class="best_burgers_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section_title text-center mb-80">
+                    <span>New menu</span>
+                    <h3>BEST EVER</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6 col-md-6 col-lg-6">
+                <div class="single_delicious d-flex align-items-center">
+                    <div class="thumb">
+                        <img src="img/sets/1.png" alt="">
+                    </div>
+                    <div class="info">
+                        <h3>Sushi and rolls</h3>
+                        <p>Great way to make your business appear trust and relevant.</p>
+                        <a href=""><span>Let's choose!</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="single_delicious d-flex align-items-center">
+                    <div class="thumb">
+                        <img src="img/soup/1.jpg" alt="" width="250" height="250">
+                    </div>
+                    <div class="info">
+                        <h3>Soups</h3>
+                        <p>Great way to make your business appear trust and relevant.</p>
+                        <a href=""><span>Let's choose!</span></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="single_delicious d-flex align-items-center">
+                    <div class="thumb">
+                        <img src="img/noodles/1.jpg" alt="" width="250" height="250">
+                    </div>
+                    <div class="info">
+                        <h3>Noodles</h3>
+                        <p>Great way to make your business appear trust and relevant.</p>
+                        <a href=""><span>Let's choose!</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-6 col-lg-6">
+                <div class="single_delicious d-flex align-items-center">
+                    <div class="thumb">
+                        <img src="img/drinks/1.png" alt="" width="250" height="250">
+                    </div>
+                    <div class="info">
+                        <h3>Beverages</h3>
+                        <p>Great way to make your business appear trust and relevant.</p>
+                        <a href=""><span>Let's choose!</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- JS here -->
 <script src="js/vendor/modernizr-3.5.0.min.js"></script>

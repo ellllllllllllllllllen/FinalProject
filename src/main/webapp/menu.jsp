@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Home</title>
+    <title>Menu</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -131,7 +131,7 @@
                     <div class="info">
                         <h3>Sushi and rolls</h3>
                         <p>Great way to make your business appear trust and relevant.</p>
-                        <a href=""><span>Let's choose!</span></a>
+                        <a href="sushi.jsp"><span>Let's choose!</span></a>
                     </div>
                 </div>
             </div>
@@ -151,7 +151,7 @@
             <div class="col-lg-6 col-md-6">
                 <div class="single_delicious d-flex align-items-center">
                     <div class="thumb">
-                        <img src="img/sets/3.png" alt="">
+                        <img src="img/noodles/1.jpg" alt="" width="250" height="250">
                     </div>
                     <div class="info">
                         <h3>Noodles</h3>

@@ -1,6 +1,7 @@
 package edu.epam.cafe.command.factory;
 
 import edu.epam.cafe.command.Command;
+import edu.epam.cafe.command.impl.GetSushiCommand;
 import edu.epam.cafe.command.impl.PostLogoutCommand;
 import edu.epam.cafe.command.impl.PostSignInCommand;
 import edu.epam.cafe.command.impl.PostSignUpCommand;
@@ -21,6 +22,7 @@ public class CommandFactoryImpl implements CommandFactory{
         commands.put(CommandFactory.SIGN_IN, new PostSignInCommand());
         commands.put(CommandFactory.SIGN_UP, new PostSignUpCommand());
         commands.put(CommandFactory.LOGOUT, new PostLogoutCommand());
+        commands.put(CommandFactory.SUSHI, new GetSushiCommand());
     }
 
     public static CommandFactoryImpl getInstance() {

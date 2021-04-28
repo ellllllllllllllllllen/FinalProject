@@ -1,10 +1,12 @@
-/home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/model/dao/impl/UserDao.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/validator/impl/LastnameValidator.java
+/home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/model/dao/impl/UserDaoImpl.java
+/home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/command/impl/GetSushiCommand.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/command/impl/PostLogoutCommand.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/validator/impl/UsernameValidator.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/model/entity/Role.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/exception/ServiceException.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/command/impl/GetPageCommand.java
+/home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/model/dao/UserDao.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/validator/Validator.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/command/ErrorMessage.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/controller/PagePath.java
@@ -23,11 +25,13 @@
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/model/connection/ProxyConnection.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/exception/ConnectionPoolException.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/model/entity/User.java
+/home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/model/dao/impl/SushiDao.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/model/dao/Queries.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/exception/DaoException.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/model/connection/ConnectionPool.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/util/PropertyLoader.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/validator/UserValidator.java
+/home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/model/entity/Sushi.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/validator/impl/EmailValidator.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/command/Command.java
 /home/ellen/IdeaProjects/FinalProject/src/main/java/edu/epam/cafe/command/factory/CommandFactoryImpl.java

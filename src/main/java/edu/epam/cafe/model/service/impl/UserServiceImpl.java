@@ -1,6 +1,6 @@
 package edu.epam.cafe.model.service.impl;
 
-import edu.epam.cafe.model.dao.impl.UserDao;
+import edu.epam.cafe.model.dao.impl.UserDaoImpl;
 import edu.epam.cafe.model.entity.User;
 import edu.epam.cafe.exception.DaoException;
 import edu.epam.cafe.exception.ServiceException;
@@ -16,13 +16,13 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
     private final UserValidator userValidator = new UserValidatorImpl();
-    private final UserDao userDao = UserDao.getInstance();
+    private final UserDaoImpl userDao = UserDaoImpl.getInstance();
 
     @Override
     public boolean createUser(User user, String password)throws ServiceException{
         try {
             String encryptedPassword = PasswordEncryption.encrypt(password);
-            UserDao userDao = UserDao.getInstance();
+            UserDaoImpl userDao = UserDaoImpl.getInstance();
             boolean update = userDao.add(user, encryptedPassword);
             return update;
         }catch (DaoException e){

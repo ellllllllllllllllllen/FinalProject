@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -110,7 +111,9 @@
     <h3>Sushi</h3>
 </div>
 <!-- bradcam_area_end -->
-
+<c:forEach var="item" items="${sushi}">
+    <h3>${item.getName()}</h3>
+</c:forEach>
 <!-- best_burgers_area_start  -->
 <div class="best_burgers_area">
     <div class="container">
@@ -122,20 +125,22 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6 col-lg-6">
-                <div class="single_delicious d-flex align-items-center">
-                    <div class="thumb">
-                        <img src="img/sets/1.png" alt="" width="250" height="250">
-                    </div>
-                    <div class="info">
-                        <h3>Item name</h3>
-                        <p>Description</p>
-                        <span>Price</span>
+        <c:forEach var="item" items="${sushi}">
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <div class="single_delicious d-flex align-items-center">
+                        <div class="thumb">
+                            <img src="img/sets/1.png" alt="" width="250" height="250">
+                        </div>
+                        <div class="info">
+                            <h3>${item.getName()}</h3>
+                            <p>${item.getDescription()}</p>
+                            <span>${item.getPrice()}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </c:forEach>
     </div>
 </div>
 

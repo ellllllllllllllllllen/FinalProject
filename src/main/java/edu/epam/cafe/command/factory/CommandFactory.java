@@ -18,6 +18,8 @@ public interface CommandFactory {
     String SIGN_IN = "sign_in";
     String SIGN_UP = "sign_up";
     String LOGOUT = "logout";
+    String MENU = "menu";
+    String SUSHI = "sushi";
 
     String SIGN_IN_PAGE = "sign_in_page";
     String SIGN_UP_PAGE = "sign_up_page";

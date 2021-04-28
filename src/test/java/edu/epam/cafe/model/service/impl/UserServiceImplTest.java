@@ -2,7 +2,7 @@ package edu.epam.cafe.model.service.impl;
 
 import edu.epam.cafe.exception.DaoException;
 import edu.epam.cafe.exception.ServiceException;
-import edu.epam.cafe.model.dao.impl.UserDao;
+import edu.epam.cafe.model.dao.impl.UserDaoImpl;
 import edu.epam.cafe.model.entity.Role;
 import edu.epam.cafe.model.entity.User;
 import org.junit.Assert;
@@ -23,7 +23,7 @@ public class UserServiceImplTest {
     UserServiceImpl userService;
 
     @Mock
-    UserDao userDaoMock;
+    UserDaoImpl userDaoMock;
 
     @Before
     public void init(){
